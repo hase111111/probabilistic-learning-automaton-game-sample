@@ -1,4 +1,5 @@
 from .battle_sequence import BattleSequence
 from .random_agent import RandomAgent
+from .ai_agent import AiAgent
 
-__all__ = ["BattleSequence", "RandomAgent"]
+__all__ = ["BattleSequence", "RandomAgent", "AiAgent"]
