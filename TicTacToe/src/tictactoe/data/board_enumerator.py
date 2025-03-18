@@ -18,7 +18,7 @@ class BoardEnumerator:
         field_set.add(Field().to_data())
 
         # queue is tuple list of (field_str, player)
-        queue = [(Field().to_data(), CROSS), (Field().to_data(), ZERO)]
+        queue = [(Field().to_data(), CROSS)]
 
         # BFS
         while queue:
@@ -36,6 +36,8 @@ class BoardEnumerator:
                     queue.append(
                         (next_board, CROSS if current_player == ZERO else ZERO)
                     )
+
+        field_set = self._add_inv_data(field_set)
 
         return field_set
 
@@ -59,3 +61,25 @@ class BoardEnumerator:
             ret.append(new_field.to_data())
 
         return ret
+
+    def _inv_data(self, data: str):
+        """
+        Return the inverse data of the given data.
+        """
+        ret = ""
+        for cell in data:
+            if cell == "x":
+                ret += "o"
+            elif cell == "o":
+                ret += "x"
+            else:
+                ret += "-"
+        return ret
+
+    def _add_inv_data(self, data_set: set):
+        """
+        Add the inverse data of the given data to the set.
+        """
+        for data in list(data_set):
+            data_set.add(self._inv_data(data))
+        return data_set
