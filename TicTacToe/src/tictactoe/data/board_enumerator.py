@@ -1,18 +1,19 @@
-'''board_enumerator.py'''
+"""board_enumerator.py"""
 
 import copy
 
 from .field import Field, CROSS, ZERO
 
+
 class BoardEnumerator:
-    '''
+    """
     This class is responsible for enumerating all possible boards.
-    '''
+    """
 
     def get_all_boards(self):
-        '''
+        """
         Get all possible boards.
-        '''
+        """
         field_set = set()
         field_set.add(Field().to_data())
 
@@ -32,18 +33,20 @@ class BoardEnumerator:
                     f.from_data(next_board)
                     if f.is_winner(CROSS) or f.is_winner(ZERO):
                         continue
-                    queue.append((next_board, CROSS if current_player == ZERO else ZERO))
+                    queue.append(
+                        (next_board, CROSS if current_player == ZERO else ZERO)
+                    )
 
         return field_set
 
     def _generate_next_boards(self, field_str: str, player):
-        '''
+        """
         Generate all possible boards.
 
         Args:
             field (Field): The current field.
             player (str): The player to move. "o" or "x".
-        '''
+        """
         field = Field()
         field.from_data(field_str)
         next_boards = field.get_all_available_moves()

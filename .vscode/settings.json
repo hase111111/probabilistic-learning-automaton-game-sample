@@ -1,8 +1,8 @@
 {
-    // "python.analysis.diagnosticSeverityOverrides": {
-    //     "reportMissingModuleSource": "none",
-    //     "reportMissingImports": "none",
-    //     "reportAttributeAccessIssue": "none"
-    // },
-    "pylint.args": ["--disable=no-member"],
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "pylint.args": [
+        "--disable=C0301",  // line-too-long
+        "--disable=no-member"
+    ],
 }

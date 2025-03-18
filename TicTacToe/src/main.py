@@ -1,13 +1,14 @@
-
-'''main.py'''
+"""main.py"""
 
 import pygame
 import pygame.locals
 
+
 import tictactoe
 
+
 def main():
-    '''
+    """
     ### TIC TAC TOE !! ###
 
     This is a simple game of Tic Tac Toe.
@@ -17,7 +18,7 @@ def main():
     The players take turns to place their mark on the grid.
     The first player to get 3 of their marks in a row is the winner.
     If the grid is full and no player has won, the game is a tie.
-    '''
+    """
 
     pygame.init()
     screen = pygame.display.set_mode((960, 540))

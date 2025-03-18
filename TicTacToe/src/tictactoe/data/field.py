@@ -1,20 +1,21 @@
-'''field.py'''
+"""field.py"""
 
-BLANK = ' '
-CROSS = 'x'
-ZERO = 'o'
+BLANK = " "
+CROSS = "x"
+ZERO = "o"
 FIELD_SIZE = 3
 
+
 class Field:
-    '''
+    """
     This class represents the field of the game.
-    '''
+    """
 
     def __init__(self):
         self.field = [[BLANK for _ in range(FIELD_SIZE)] for _ in range(FIELD_SIZE)]
 
     def __str__(self):
-        return '\n'.join([' | '.join(row) for row in self.field])
+        return "\n".join([" | ".join(row) for row in self.field])
 
     def __getitem__(self, key):
         return self.field[key]
@@ -30,46 +31,46 @@ class Field:
             self.field[row][col] = value
 
     def get_all_available_moves(self):
-        '''
+        """
         Get all available moves in the field.
-        '''
+        """
         return [
-            i for i in range(FIELD_SIZE ** 2)
-                if self.field[i // FIELD_SIZE][i % FIELD_SIZE] == BLANK
+            i
+            for i in range(FIELD_SIZE**2)
+            if self.field[i // FIELD_SIZE][i % FIELD_SIZE] == BLANK
         ]
 
     def to_data(self) -> str:
-        '''
+        """
         convert the field to a string.
 
         o |   | x
         x | o | x  => o-xxoxxoo
         x | o | o
-        '''
-        ans = ''
+        """
+        ans = ""
         for row in self.field:
             for cell in row:
-                ans += cell if cell != BLANK else '-'
+                ans += cell if cell != BLANK else "-"
         return ans
 
     def from_data(self, data: str):
-        '''
+        """
         convert the string to the field.
-        '''
+        """
 
         for i, cell in enumerate(data):
             row = i // FIELD_SIZE
             col = i % FIELD_SIZE
-            self.field[row][col] = cell if cell != '-' else BLANK
-
+            self.field[row][col] = cell if cell != "-" else BLANK
 
     def is_winner(self, player) -> bool:
-        '''
+        """
         Check if the player has won the game.
 
         Args:
             player (str): The player to check for. "o" or "x".
-        '''
+        """
 
         for row in self.field:
             if all([cell == player for cell in row]):
