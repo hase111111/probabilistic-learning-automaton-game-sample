@@ -1,60 +1,43 @@
 """learning.py"""
 
-import json
+import random
 
-import tictactoe.data
-import tictactoe.battle
+import tictactoe.data as td
+import tictactoe.battle as tb
 
 
 def main():
-    gene = tictactoe.data.BoardEnumerator()
-    boards = gene.get_all_boards()
+    pro1 = td.ProbabilityData()
+    pro1.initialize()
+    pro2 = td.ProbabilityData()
+    pro2.initialize()
 
-    dict_boards = dict()
-    for i, board in enumerate(boards):
-        f = tictactoe.data.Field()
-        f.from_data(board)
-        move = f.get_all_available_moves()
-        move_dict = dict()
-        for m in move:
-            move_dict[m] = 100 / len(move)
-        dict_boards[board] = move_dict
+    player1 = tb.AiAgent(pro1.get_raw_data())
+    player2 = tb.AiAgent(pro2.get_raw_data())
+    battle = tb.BattleSequence(player1, player2, print_flag=False, first_player="o")
+    updater = td.ProbabilityDataUpdater()
 
-    with open("data.json", "w", encoding="utf-8") as f:
-        json.dump(dict_boards, f)
-
-
-def main2():
-    gene = tictactoe.data.BoardEnumerator()
-    boards = gene.get_all_boards()
-
-    dict_boards = dict()
-    for _, board in enumerate(boards):
-        f = tictactoe.data.Field()
-        f.from_data(board)
-        move = f.get_all_available_moves()
-        move_dict = dict()
-        for m in move:
-            move_dict[m] = 100 / len(move)
-        dict_boards[board] = move_dict
-
-    player1 = tictactoe.battle.RandomAgent()
-    player2 = tictactoe.battle.RandomAgent()
-    battle = tictactoe.battle.BattleSequence(player1, player2, print_flag=False)
-
-    print(dict_boards["x-x-o----"])
-    alpha = 0.1  # learning rate
-
-    for _ in range(10):
+    for _ in range(10**5):
+        battle.first_player = random.choice([td.ZERO, td.CROSS])
         battle.play()
+        battle_log = battle.battle_log
+        battle_result = battle.battle_result
+        updater.update(pro1.get_raw_data(), battle_log, td.ZERO, battle_result)
+        updater.update(pro2.get_raw_data(), battle_log, td.CROSS, battle_result)
 
-        # if O wins, reward O
-        if battle.battle_result == "o":
-            for data, move in battle.battle_log:
-                dict_boards[data][move] += 10
+    player1 = tb.AiAgent(pro1.get_raw_data(), use_best_move=True)
+    player2 = tb.AiAgent(pro2.get_raw_data(), use_best_move=True)
+    battle = tb.BattleSequence(player1, player2, print_flag=True, first_player="o")
+    battle.play()
 
-    print(dict_boards["---------"])
+    battle.first_player = "x"
+    battle.play()
+
+    data = pro1.get_raw_data()
+    print(data["---------"])
+    data = pro2.get_raw_data()
+    print(data["---------"])
 
 
 if __name__ == "__main__":
-    main2()
+    main()
