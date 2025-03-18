@@ -1,4 +1,3 @@
-
 '''game_loop.py'''
 
 import sys
@@ -7,6 +6,10 @@ import pygame
 import pygame.locals
 
 class GameLoop:
+    '''
+    This class is responsible for running the game loop.
+    '''
+
     def __init__(self, screen):
         self.screen = screen
 
