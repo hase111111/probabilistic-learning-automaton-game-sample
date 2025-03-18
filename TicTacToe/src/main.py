@@ -1,10 +1,9 @@
 """main.py"""
 
+import tictactoe
+
 import pygame
 import pygame.locals
-
-
-import tictactoe
 
 
 def main():
