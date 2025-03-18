@@ -1,0 +1,8 @@
+{
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingModuleSource": "none",
+        "reportMissingImports": "none",
+        "reportAttributeAccessIssue": "none"
+    },
+    "pylint.args": ["--disable=no-member"],
+}
