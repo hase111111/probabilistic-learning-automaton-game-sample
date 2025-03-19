@@ -40,6 +40,13 @@ class Field:
             if self.field[i // FIELD_SIZE][i % FIELD_SIZE] == BLANK
         ]
 
+    @staticmethod
+    def get_all_available_moves_(field_str: str):
+        """
+        Get all available moves in the field.
+        """
+        return [i for i in range(FIELD_SIZE**2) if field_str[i] == "-"]
+
     def to_data(self) -> str:
         """
         convert the field to a string.
