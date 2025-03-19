@@ -18,7 +18,7 @@ class GameLoop:
     This class is responsible for running the game loop.
     """
 
-    def __init__(self, screen):
+    def __init__(self, screen: pygame.Surface):
         self.screen = screen
 
     def run(self):
