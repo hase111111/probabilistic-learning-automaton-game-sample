@@ -1,4 +1,11 @@
-"""__init__.py: This file is used to initialize the package tictactoe."""
+"""
+# Copyright (c) 2025 Taisei Hasegawa
+# Released under the MIT license
+# https://opensource.org/licenses/mit-license.php
+
+__init__.py
+
+"""
 
 from ._manifest import *
 

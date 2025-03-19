@@ -1,3 +1,13 @@
+"""
+# Copyright (c) 2025 Taisei Hasegawa
+# Released under the MIT license
+# https://opensource.org/licenses/mit-license.php
+
+probability_data_updater.py
+
+"""
+
+
 class ProbabilityDataUpdater:
     def __init__(self):
         self.alpha = 0.1  # learning rate
